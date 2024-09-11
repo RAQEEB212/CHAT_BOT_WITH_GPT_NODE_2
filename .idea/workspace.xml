@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="98839163-7f98-41fa-afa1-5f22e006477b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-    </list>
+    <list default="true" id="98839163-7f98-41fa-afa1-5f22e006477b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,7 +28,7 @@
 }]]></component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
-    "url": "https://github.com/RAQEEB212/CHAT_BOT_WITH_GPT_NODE.git",
+    "url": "https://github.com/RAQEEB212/CHAT_BOT_WITH_GPT_NODE_2.git",
     "accountId": "be78cedf-c888-44ba-9e96-fb2cf7509f1e"
   }
 }]]></component>
@@ -72,7 +70,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1725968728402</updated>
-      <workItem from="1725968729501" duration="5678000" />
+      <workItem from="1725968729501" duration="6022000" />
     </task>
     <servers />
   </component>
