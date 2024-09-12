@@ -38,7 +38,7 @@ const getChatResponse = async (messages) => {
         const response = await axios.post(
             'https://api.openai.com/v1/chat/completions',
             {
-                model: "gpt-3.5-turbo",  // GPT model version
+                model: "gpt-4o-mini",  // GPT model version
                 messages: messages,
                 max_tokens: 2048, // Adjust this to allow for longer responses
                 temperature: 0.7, // Adjust temperature for creativity
