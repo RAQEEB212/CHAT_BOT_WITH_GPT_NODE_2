@@ -1,16 +1,15 @@
-// server.js
-
 const express = require('express');
-const axios = require('axios');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
+const axios = require('axios');
 require('dotenv').config();
 
 const app = express();
 const port = 3000;
 
-// Middleware
-app.use(bodyParser.json());
+app.use(cors()); // Allow cross-origin requests
+app.use(bodyParser.json()); // Parse JSON payloads
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/chatdb', {
@@ -33,33 +32,31 @@ const chatSchema = new mongoose.Schema({
 // Create a Chat model
 const Chat = mongoose.model('Chat', chatSchema);
 
-// Helper function to call OpenAI API with history
+// Helper function to call OpenAI API with chat history
 const getChatResponse = async (messages) => {
-    const apiUrl = 'https://api.openai.com/v1/chat/completions';
-
     try {
         const response = await axios.post(
-            apiUrl,
+            'https://api.openai.com/v1/chat/completions',
             {
-                model: "gpt-3.5-turbo",  // Using GPT-3.5 turbo model
-                messages: messages
+                model: "gpt-3.5-turbo",  // GPT model version
+                messages: messages,
+                max_tokens: 2048, // Adjust this to allow for longer responses
+                temperature: 0.7, // Adjust temperature for creativity
             },
             {
                 headers: {
                     Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-                    'Content-Type': 'application/json'
-                }
+                    'Content-Type': 'application/json',
+                },
             }
         );
 
-        return response.data.choices[0].message.content;
+        return response.data.choices[0].message.content; // Extract the response content
     } catch (error) {
-        console.error('Error in OpenAI API request:', error);
+        console.error('Error in OpenAI API request:', error.response?.data || error.message);
         throw new Error('Failed to get a response from OpenAI.');
     }
 };
-
-// Routes
 
 // POST: /chat - Handle new chat messages
 app.post('/chat', async (req, res) => {
@@ -83,7 +80,10 @@ app.post('/chat', async (req, res) => {
 
         // Prepare messages with system prompt and history
         const formattedMessages = [
-            { role: 'system', content: "You are ChatGPT, a helpful assistant that can maintain chat context." },
+            {
+                role: 'system',
+                content: "You are a personal trainer and nutrition expert. Provide detailed workout plans, strength training tips, and personalized diet advice based on the user's fitness goals, such as muscle gain, weight loss, or general health improvement. Respond with structured, actionable steps in a friendly, motivational tone."
+            },
             ...chatSession.messages.map(m => ({ role: m.role, content: m.content }))
         ];
 
